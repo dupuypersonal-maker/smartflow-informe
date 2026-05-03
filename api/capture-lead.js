@@ -25,7 +25,7 @@ module.exports = async function handler(req, res) {
       },
       body: JSON.stringify({
         fields: {
-          Email: email,
+         Name: email,
           Fuente: fuente || 'Informe Inmobiliario 2025',
           Fecha: new Date().toISOString().split('T')[0],
         }
