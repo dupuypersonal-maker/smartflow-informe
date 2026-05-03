@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Informe Inmobiliario 2025 — Smartflow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0e0e0e;
+  --paper: #f5f2ec;
+  --blue: #2563eb;
+  --blue-light: #eff4ff;
+  --blue-mid: #93aff5;
+  --muted: #888076;
+  --border: rgba(14,14,14,0.12);
+  --radius: 16px;
+  --red: #dc2626;
+  --red-light: #fef2f2;
+  --green: #16a34a;
+  --green-light: #f0fdf4;
+  --amber: #d97706;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 3rem;
+  background: rgba(245,242,236,0.85); backdrop-filter: blur(12px);
+  border-bottom: 0.5px solid var(--border);
+}
+.logo { font-family: 'Instrument Serif', serif; font-size: 22px; letter-spacing: -.02em; color: var(--ink); display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); display: inline-block; }
+.nav-pill { font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); background: var(--blue-light); padding: 5px 14px; border-radius: 50px; border: 0.5px solid rgba(37,99,235,.2); }
+
+/* HERO */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+  padding: 8rem 3rem 5rem; position: relative; overflow: hidden;
+  max-width: 1100px; margin: 0 auto;
+}
+.hero-bg { position: fixed; inset: 0; z-index: -1; background: radial-gradient(ellipse 55% 50% at 75% 35%, rgba(37,99,235,0.07) 0%, transparent 70%), radial-gradient(ellipse 40% 55% at 10% 75%, rgba(37,99,235,0.04) 0%, transparent 60%); }
+.hero-grid { position: fixed; inset: 0; z-index: -1; opacity: .35; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 30%, transparent 100%); }
+.hero-kicker { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--blue); font-weight: 500; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px; opacity: 0; animation: fadeUp .5s .1s ease forwards; }
+.hero-kicker::before { content: ''; width: 20px; height: 1px; background: var(--blue); }
+h1 { font-family: 'Instrument Serif', serif; font-size: clamp(48px, 6vw, 80px); line-height: 1.05; letter-spacing: -.03em; color: var(--ink); font-weight: 400; margin-bottom: 1.5rem; max-width: 700px; opacity: 0; animation: fadeUp .7s .2s ease forwards; }
+h1 em { font-style: italic; color: var(--blue); }
+.hero-desc { font-size: 18px; color: var(--muted); max-width: 540px; line-height: 1.7; font-weight: 300; margin-bottom: 3rem; opacity: 0; animation: fadeUp .7s .35s ease forwards; }
+.hero-meta { display: flex; align-items: center; gap: 2rem; padding-top: 2rem; border-top: 0.5px solid var(--border); opacity: 0; animation: fadeUp .7s .5s ease forwards; }
+.hero-meta-item { font-size: 13px; color: var(--muted); font-weight: 300; display: flex; align-items: center; gap: 6px; }
+.hero-meta-item strong { color: var(--ink); font-weight: 500; }
+.hero-scroll { opacity: 0; animation: fadeUp .7s .65s ease forwards; margin-top: 3rem; display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; text-decoration: none; transition: color .2s; }
+.hero-scroll:hover { color: var(--blue); }
+.scroll-circle { width: 36px; height: 36px; border-radius: 50%; border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; animation: bounce 2s 1.5s ease-in-out infinite; transition: border-color .2s; }
+.hero-scroll:hover .scroll-circle { border-color: var(--blue); }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* REPORT BODY */
+.report { max-width: 760px; margin: 0 auto; }
+
+/* SECTION */
+.r-section { padding: 5rem 2rem; border-top: 0.5px solid var(--border); }
+.r-section:first-child { border-top: none; }
+.r-num { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 72px; color: rgba(37,99,235,.1); line-height: 1; margin-bottom: -.5rem; }
+.r-tag { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--blue); font-weight: 500; margin-bottom: .75rem; }
+h2 { font-family: 'Instrument Serif', serif; font-size: clamp(28px, 4vw, 42px); letter-spacing: -.025em; color: var(--ink); font-weight: 400; margin-bottom: 1.25rem; line-height: 1.15; }
+h2 em { font-style: italic; color: var(--blue); }
+.r-lead { font-size: 16px; color: var(--muted); line-height: 1.75; font-weight: 300; margin-bottom: 2.5rem; }
+
+/* STAT CARD */
+.stat-card { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-bottom: 1rem; box-shadow: 0 2px 20px rgba(0,0,0,.04); }
+.stat-card.red { background: var(--red-light); border-color: rgba(220,38,38,.15); }
+.stat-card.blue { background: var(--blue-light); border-color: rgba(37,99,235,.15); }
+.stat-card.green { background: var(--green-light); border-color: rgba(22,163,74,.15); }
+.stat-big { font-family: 'Instrument Serif', serif; font-size: clamp(48px, 7vw, 80px); letter-spacing: -.04em; line-height: 1; margin-bottom: .4rem; }
+.stat-card.red .stat-big { color: var(--red); }
+.stat-card.blue .stat-big { color: var(--blue); }
+.stat-card.green .stat-big { color: var(--green); }
+.stat-card:not(.red):not(.blue):not(.green) .stat-big { color: var(--ink); }
+.stat-label { font-size: 14px; color: var(--muted); font-weight: 300; line-height: 1.5; }
+.stat-source { font-size: 11px; color: rgba(136,128,118,.6); margin-top: .5rem; font-style: italic; }
+
+/* STAT GRID */
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+.stat-grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2rem; }
+
+/* CONVERSION TABLE */
+.conv-table { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 2rem; box-shadow: 0 2px 20px rgba(0,0,0,.04); }
+.conv-table-header { padding: 1.25rem 1.75rem; border-bottom: 0.5px solid var(--border); font-size: 13px; font-weight: 500; color: var(--ink); display: flex; justify-content: space-between; align-items: center; }
+.conv-row { display: flex; align-items: center; padding: 1rem 1.75rem; border-bottom: 0.5px solid var(--border); gap: 1.5rem; }
+.conv-row:last-child { border-bottom: none; }
+.conv-time { font-size: 14px; font-weight: 500; color: var(--ink); min-width: 90px; }
+.conv-bar-wrap { flex: 1; }
+.conv-bar-bg { height: 8px; background: rgba(14,14,14,.07); border-radius: 4px; overflow: hidden; }
+.conv-bar-fill { height: 8px; border-radius: 4px; transition: width 1s cubic-bezier(.22,1,.36,1); width: 0; }
+.conv-label { font-size: 13px; font-weight: 500; min-width: 120px; text-align: right; }
+
+/* VISUAL BARS */
+.v-bars { margin-bottom: 2rem; }
+.v-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.v-bar-name { font-size: 13px; color: var(--muted); min-width: 140px; font-weight: 300; }
+.v-bar-track { flex: 1; height: 6px; background: rgba(14,14,14,.07); border-radius: 3px; overflow: hidden; }
+.v-bar-fill { height: 6px; border-radius: 3px; width: 0; transition: width 1s cubic-bezier(.22,1,.36,1); }
+.v-bar-val { font-size: 13px; font-weight: 500; min-width: 40px; text-align: right; }
+
+/* PULL QUOTE */
+.pull-quote { border-left: 3px solid var(--blue); padding: 1.25rem 1.5rem; margin: 2rem 0; background: var(--blue-light); border-radius: 0 var(--radius) var(--radius) 0; }
+.pull-quote p { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--ink); line-height: 1.5; letter-spacing: -.01em; font-style: italic; }
+.pull-quote span { font-size: 12px; color: var(--muted); font-style: normal; font-family: 'DM Sans', sans-serif; display: block; margin-top: .5rem; }
+
+/* CALLOUT */
+.callout { background: var(--ink); border-radius: var(--radius); padding: 2rem; margin: 2rem 0; position: relative; overflow: hidden; }
+.callout-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(37,99,235,.2) 0%, transparent 70%); pointer-events: none; }
+.callout p { font-size: 16px; color: var(--paper); line-height: 1.7; font-weight: 300; position: relative; }
+.callout strong { color: var(--blue-mid); font-weight: 500; }
+
+/* COMPARISON */
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 2rem; }
+.comp-side { padding: 1.75rem; }
+.comp-side.bad { background: var(--red-light); }
+.comp-side.good { background: var(--green-light); }
+.comp-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; margin-bottom: 1rem; }
+.comp-side.bad .comp-label { color: var(--red); }
+.comp-side.good .comp-label { color: var(--green); }
+.comp-stat { font-family: 'Instrument Serif', serif; font-size: 36px; letter-spacing: -.03em; line-height: 1; margin-bottom: .4rem; }
+.comp-side.bad .comp-stat { color: var(--red); }
+.comp-side.good .comp-stat { color: var(--green); }
+.comp-desc { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.5; }
+
+/* EMAIL GATE */
+.email-gate {
+  background: var(--ink); border-radius: var(--radius);
+  padding: 3rem 2.5rem; text-align: center; margin: 2rem 0;
+  position: relative; overflow: hidden;
+}
+.email-gate-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(37,99,235,.25) 0%, transparent 70%); }
+.email-gate-tag { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; background: var(--blue); color: #fff; padding: 4px 12px; border-radius: 50px; display: inline-block; margin-bottom: 1.25rem; font-weight: 500; position: relative; }
+.email-gate h3 { font-family: 'Instrument Serif', serif; font-size: clamp(22px, 3.5vw, 34px); color: var(--paper); margin-bottom: .6rem; font-weight: 400; letter-spacing: -.02em; position: relative; }
+.email-gate h3 em { font-style: italic; color: var(--blue-mid); }
+.email-gate p { font-size: 15px; color: rgba(245,242,236,.5); margin-bottom: 2rem; font-weight: 300; line-height: 1.65; max-width: 420px; margin-left: auto; margin-right: auto; position: relative; }
+.email-form { display: flex; gap: .75rem; max-width: 420px; margin: 0 auto; position: relative; }
+.email-input { flex: 1; padding: .85rem 1.25rem; background: rgba(245,242,236,.08); border: 0.5px solid rgba(245,242,236,.15); border-radius: 50px; font-size: 14px; color: var(--paper); font-family: 'DM Sans', sans-serif; outline: none; transition: border-color .2s; }
+.email-input::placeholder { color: rgba(245,242,236,.35); }
+.email-input:focus { border-color: var(--blue); }
+.email-submit { padding: .85rem 1.5rem; background: var(--blue); color: #fff; border: none; border-radius: 50px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; transition: opacity .2s; }
+.email-submit:hover { opacity: .88; }
+.email-note { font-size: 12px; color: rgba(245,242,236,.25); margin-top: .75rem; position: relative; }
+
+/* BLURRED SECTION */
+.blurred { position: relative; }
+.blur-overlay {
+  position: absolute; inset: 0; z-index: 10;
+  backdrop-filter: blur(8px);
+  background: rgba(245,242,236,.7);
+  border-radius: var(--radius);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 1rem; text-align: center; padding: 2rem;
+}
+.blur-overlay.hidden { display: none; }
+.blur-unlock-text { font-size: 15px; font-weight: 500; color: var(--ink); }
+.blur-unlock-sub { font-size: 13px; color: var(--muted); font-weight: 300; }
+
+/* CTA FINAL */
+.cta-final { background: var(--ink); border-radius: var(--radius); padding: 3.5rem 2.5rem; text-align: center; position: relative; overflow: hidden; margin: 2rem 0 5rem; }
+.cta-final-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(37,99,235,.25) 0%, transparent 70%); }
+.cta-final h2 { font-family: 'Instrument Serif', serif; font-size: clamp(26px, 4vw, 40px); color: var(--paper); margin-bottom: .75rem; font-weight: 400; position: relative; letter-spacing: -.02em; }
+.cta-final h2 em { font-style: italic; color: var(--blue-mid); }
+.cta-final p { font-size: 15px; color: rgba(245,242,236,.5); margin-bottom: 2rem; font-weight: 300; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.65; position: relative; }
+.btn-cal { display: inline-flex; align-items: center; gap: 8px; padding: .9rem 2.5rem; background: var(--paper); color: var(--ink); border: none; border-radius: 50px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: background .2s, transform .15s; position: relative; }
+.btn-cal:hover { background: var(--blue); color: #fff; transform: translateY(-1px); }
+.cta-spots { font-size: 12px; color: rgba(245,242,236,.3); margin-top: .75rem; position: relative; }
+
+/* FOOTER */
+footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+.f-logo { font-family: 'Instrument Serif', serif; font-size: 17px; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 7px; }
+footer p { font-size: 12px; color: var(--muted); font-weight: 300; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media(max-width:640px){
+  nav { padding: 1rem 1.5rem; }
+  .hero { padding: 7rem 1.5rem 4rem; }
+  .stat-grid, .stat-grid-3, .comparison { grid-template-columns: 1fr; }
+  .email-form { flex-direction: column; }
+  footer { flex-direction: column; gap: .5rem; text-align: center; }
+  .r-section { padding: 3.5rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo"><span class="logo-dot"></span>Smartflow</a>
+  <span class="nav-pill">Informe 2025</span>
+</nav>
+
+<!-- HERO -->
+<div style="max-width:1100px;margin:0 auto">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-kicker">Investigación exclusiva · Iberoamérica 2025</div>
+    <h1>El 63% de las inmobiliarias<br>nunca responde a<br>un <em>lead.</em></h1>
+    <p class="hero-desc">Datos reales sobre cómo venden (y pierden) las agencias inmobiliarias en España y América Latina. Lo que los mejores hacen diferente — y lo que el resto ignora.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>47</strong> estadísticas verificadas</div>
+      <div class="hero-meta-item"><strong>6</strong> secciones de análisis</div>
+      <div class="hero-meta-item"><strong>2023–2025</strong> datos actualizados</div>
+    </div>
+    <a href="#informe" class="hero-scroll">
+      <div class="scroll-circle">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M3 8l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      Leer el informe
+    </a>
+  </section>
+</div>
+
+<!-- REPORT -->
+<div class="report" id="informe">
+
+  <!-- SECTION 1: VELOCIDAD -->
+  <div class="r-section reveal">
+    <div class="r-num">01</div>
+    <div class="r-tag">Velocidad de respuesta</div>
+    <h2>Tu competencia tarda<br><em>15 horas</em> en responder.</h2>
+    <p class="r-lead">El tiempo promedio de respuesta de una agencia inmobiliaria es de 917 minutos — casi un día entero. En ese tiempo, el lead ya eligió a alguien más.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card red">
+        <div class="stat-big">917</div>
+        <div class="stat-label">minutos — tiempo promedio de respuesta global a un lead inmobiliario</div>
+        <div class="stat-source">Fuente: Análisis global 2024–2025</div>
+      </div>
+      <div class="stat-card red">
+        <div class="stat-big">63%</div>
+        <div class="stat-label">de agencias <strong>nunca responden</strong> a un lead inbound. Nunca.</div>
+        <div class="stat-source">Fuente: Estudios de leads inbound 2024</div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>"El estándar de excelencia para 2025 es respuesta inicial en menos de 3 minutos y cualificación completada dentro de los primeros 15."</p>
+      <span>Benchmark de mercado Iberoamérica 2025</span>
+    </div>
+
+    <div class="conv-table reveal">
+      <div class="conv-table-header">
+        <span>Impacto del tiempo de respuesta en conversión</span>
+        <span style="font-size:12px;color:var(--muted);font-weight:300">vs. no responder</span>
+      </div>
+      <div class="conv-row">
+        <div class="conv-time" style="color:var(--green)">< 5 min</div>
+        <div class="conv-bar-wrap"><div class="conv-bar-bg"><div class="conv-bar-fill" style="background:var(--green);width:0" data-width="100%"></div></div></div>
+        <div class="conv-label" style="color:var(--green)">21× más conversión</div>
+      </div>
+      <div class="conv-row">
+        <div class="conv-time" style="color:var(--blue)">< 1 hora</div>
+        <div class="conv-bar-wrap"><div class="conv-bar-bg"><div class="conv-bar-fill" style="background:var(--blue);width:0" data-width="33%"></div></div></div>
+        <div class="conv-label" style="color:var(--blue)">7× más conversión</div>
+      </div>
+      <div class="conv-row">
+        <div class="conv-time" style="color:var(--amber)">1–24 h</div>
+        <div class="conv-bar-wrap"><div class="conv-bar-bg"><div class="conv-bar-fill" style="background:var(--amber);width:0" data-width="12%"></div></div></div>
+        <div class="conv-label" style="color:var(--amber)">−50% probabilidad</div>
+      </div>
+      <div class="conv-row">
+        <div class="conv-time" style="color:var(--red)">+24 horas</div>
+        <div class="conv-bar-wrap"><div class="conv-bar-bg"><div class="conv-bar-fill" style="background:var(--red);width:0" data-width="2%"></div></div></div>
+        <div class="conv-label" style="color:var(--red)">60× menos probable</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-glow"></div>
+      <p><strong>El efecto "primer respondedor":</strong> el 78% de los compradores inmobiliarios terminan trabajando con el primer profesional que les responde. En España, el 70% de compradores solo entrevista a un agente antes de decidir.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 2: SEGUIMIENTO -->
+  <div class="r-section reveal">
+    <div class="r-num">02</div>
+    <div class="r-tag">Pérdida de leads</div>
+    <h2>El 80% de las ventas<br>requieren <em>5 contactos.</em><br>El 44% desiste al primero.</h2>
+    <p class="r-lead">Hay una brecha abismal entre la persistencia que requiere cerrar una venta inmobiliaria y la paciencia del agente promedio. Esa brecha tiene un precio.</p>
+
+    <div class="stat-grid-3">
+      <div class="stat-card red">
+        <div class="stat-big">44%</div>
+        <div class="stat-label">de agentes desisten tras <strong>un solo intento</strong> fallido de seguimiento</div>
+        <div class="stat-source">En España este dato sube al 60%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-big">5–12</div>
+        <div class="stat-label">contactos necesarios para cerrar el <strong>80% de las ventas</strong> inmobiliarias</div>
+        <div class="stat-source">Fuente: Análisis de embudos 2024</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-big">70%</div>
+        <div class="stat-label">mayor tasa de conversión con <strong>6 o más contactos</strong> de seguimiento</div>
+        <div class="stat-source">Fuente: CRM benchmarks 2024</div>
+      </div>
+    </div>
+
+    <div class="comparison">
+      <div class="comp-side bad">
+        <div class="comp-label">Agente promedio</div>
+        <div class="comp-stat">1</div>
+        <div class="comp-desc">intento de contacto antes de asumir que el lead no tiene interés</div>
+      </div>
+      <div class="comp-side good">
+        <div class="comp-label">Agente top performer</div>
+        <div class="comp-stat">7+</div>
+        <div class="comp-desc">contactos sistemáticos — el punto de inflexión para generar confianza y cerrar</div>
+      </div>
+    </div>
+
+    <p style="font-size:14px;color:var(--muted);font-weight:300;line-height:1.75">El 79% de los leads contactados nunca llegan a convertirse en clientes, principalmente por falta de cualificación adecuada o ausencia de seguimiento post-contacto. El 40% de los leads cualificados quedan en "limbo", enfriándose por falta de contacto recurrente.</p>
+  </div>
+
+  <!-- EMAIL GATE -->
+  <div class="email-gate reveal" id="email-gate">
+    <div class="email-gate-glow"></div>
+    <span class="email-gate-tag">Continúa leyendo</span>
+    <h3>Quedan 4 secciones.<br><em>Los datos más duros están abajo.</em></h3>
+    <p>Digitalización, conversión, ROI de IA y el plan que usan las agencias líderes. Déjanos tu email y accedes al informe completo.</p>
+    <div class="email-form">
+      <input type="email" class="email-input" id="email-input" placeholder="tu@email.com">
+      <button class="email-submit" onclick="unlockReport()">Acceder →</button>
+    </div>
+    <div class="email-note">Sin spam. Solo el informe y novedades relevantes.</div>
+  </div>
+
+  <!-- LOCKED SECTIONS -->
+  <div id="locked-content">
+
+    <!-- SECTION 3: DIGITALIZACIÓN -->
+    <div class="r-section blurred reveal" id="section3">
+      <div class="blur-overlay" id="blur3">
+        <div class="blur-unlock-text">🔒 Sección bloqueada</div>
+        <div class="blur-unlock-sub">Ingresa tu email arriba para acceder</div>
+      </div>
+      <div class="r-num">03</div>
+      <div class="r-tag">Digitalización y herramientas</div>
+      <h2>WhatsApp tiene un ROI<br>de <em>8.7× en inmobiliarias.</em><br>El email, 1.5%.</h2>
+      <p class="r-lead">América Latina y España tienen la mayor penetración de WhatsApp del mundo. Las agencias que lo entienden están ganando la partida.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card blue">
+          <div class="stat-big">75%+</div>
+          <div class="stat-label">de consultas iniciales en México y Argentina llegan por <strong>WhatsApp Business</strong></div>
+          <div class="stat-source">Fuente: Datos de mercado 2024</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-big">8.7×</div>
+          <div class="stat-label">ROI promedio de WhatsApp vs. email marketing para inmobiliarias en LATAM</div>
+          <div class="stat-source">Tasa de apertura: 55–65% vs. 18%</div>
+        </div>
+      </div>
+
+      <div class="v-bars reveal">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:1rem">Comparativa de canales de comunicación</div>
+        <div class="v-bar-row">
+          <div class="v-bar-name">WhatsApp (apertura)</div>
+          <div class="v-bar-track"><div class="v-bar-fill" style="background:var(--green)" data-width="65%"></div></div>
+          <div class="v-bar-val" style="color:var(--green)">65%</div>
+        </div>
+        <div class="v-bar-row">
+          <div class="v-bar-name">Email (apertura)</div>
+          <div class="v-bar-track"><div class="v-bar-fill" style="background:var(--amber)" data-width="18%"></div></div>
+          <div class="v-bar-val" style="color:var(--amber)">18%</div>
+        </div>
+        <div class="v-bar-row">
+          <div class="v-bar-name">CRM adoptado (global)</div>
+          <div class="v-bar-track"><div class="v-bar-fill" style="background:var(--blue)" data-width="61%"></div></div>
+          <div class="v-bar-val" style="color:var(--blue)">61%</div>
+        </div>
+        <div class="v-bar-row">
+          <div class="v-bar-name">Respuesta 3.7× más rápida con automatización</div>
+          <div class="v-bar-track"><div class="v-bar-fill" style="background:var(--blue)" data-width="85%"></div></div>
+          <div class="v-bar-val" style="color:var(--blue)">3.7×</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-glow"></div>
+        <p>Para 2027, <strong>el 80% de las interacciones comerciales iniciales en LATAM ocurrirán por mensajería automatizada e IA conversacional.</strong> Las agencias que no implementen esto hoy llegarán tarde al mercado que ya se está formando.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 4: CONVERSIÓN -->
+    <div class="r-section blurred reveal" id="section4">
+      <div class="blur-overlay" id="blur4">
+        <div class="blur-unlock-text">🔒 Sección bloqueada</div>
+        <div class="blur-unlock-sub">Ingresa tu email arriba para acceder</div>
+      </div>
+      <div class="r-num">04</div>
+      <div class="r-tag">Conversión y rentabilidad</div>
+      <h2>De 200 leads,<br>solo <em>6 cierran.</em></h2>
+      <p class="r-lead">La tasa de conversión media de lead a venta en el mercado inmobiliario español es del 3–5%. Las agencias de alto desempeño duplican ese número — y no es suerte.</p>
+
+      <div class="stat-grid-3">
+        <div class="stat-card red">
+          <div class="stat-big">1–3%</div>
+          <div class="stat-label">visitas web que se convierten en un lead de contacto</div>
+          <div class="stat-source">Tráfico orgánico/pagado</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-big">3–5%</div>
+          <div class="stat-label">tasa de conversión de lead a <strong>venta cerrada</strong> (media del sector en España)</div>
+          <div class="stat-source">Fuente: Benchmarks sector 2024</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-big">60–75</div>
+          <div class="stat-label">días — ciclo de venta actual en LATAM, <strong>vs. 90–120 días</strong> pre-pandemia</div>
+          <div class="stat-source">Fuente: Datos de mercado 2024</div>
+        </div>
+      </div>
+
+      <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:1rem">Coste por lead por canal (USD)</div>
+      <div class="v-bars">
+        <div class="v-bar-row">
+          <div class="v-bar-name">WhatsApp (LATAM)</div>
+          <div class="v-bar-track"><div class="v-bar-fill" style="background:var(--green)" data-width="2%"></div></div>
+          <div class="v-bar-val" style="color:var(--green)">$0.5–2</div>
+        </div>
+        <div class="v-bar-row">
+          <div class="v-bar-name">Facebook / Meta Ads</div>
+          <div class="v-bar-track"><div class="v-bar-fill" style="background:var(--blue)" data-width="8%"></div></div>
+          <div class="v-bar-val" style="color:var(--blue)">$5–15</div>
+        </div>
+        <div class="v-bar-row">
+          <div class="v-bar-name">Portales (España)</div>
+          <div class="v-bar-track"><div class="v-bar-fill" style="background:var(--amber)" data-width="20%"></div></div>
+          <div class="v-bar-val" style="color:var(--amber)">$4–20</div>
+        </div>
+        <div class="v-bar-row">
+          <div class="v-bar-name">Google Ads</div>
+          <div class="v-bar-track"><div class="v-bar-fill" style="background:var(--amber)" data-width="50%"></div></div>
+          <div class="v-bar-val" style="color:var(--amber)">$20–50</div>
+        </div>
+        <div class="v-bar-row">
+          <div class="v-bar-name">Media sector global</div>
+          <div class="v-bar-track"><div class="v-bar-fill" style="background:var(--red)" data-width="100%"></div></div>
+          <div class="v-bar-val" style="color:var(--red)">$220</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: IA -->
+    <div class="r-section blurred reveal" id="section5">
+      <div class="blur-overlay" id="blur5">
+        <div class="blur-unlock-text">🔒 Sección bloqueada</div>
+        <div class="blur-unlock-sub">Ingresa tu email arriba para acceder</div>
+      </div>
+      <div class="r-num">05</div>
+      <div class="r-tag">Inteligencia Artificial en inmobiliarias</div>
+      <h2>171% de ROI.<br>20 horas semanales<br><em>por agente recuperadas.</em></h2>
+      <p class="r-lead">El 71% de las inmobiliarias españolas ya usan IA generativa — cifra que se triplicó en dos años. El que no actúa hoy, mañana compite contra máquinas.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card green">
+          <div class="stat-big">171%</div>
+          <div class="stat-label">ROI promedio reportado de implementaciones de <strong>IA agentiva</strong> en inmobiliarias</div>
+          <div class="stat-source">Fuente: Estudios de adopción 2024</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-big">20 h</div>
+          <div class="stat-label">semanales ahorradas <strong>por agente</strong> con automatización de procesos</div>
+          <div class="stat-source">Fuente: Benchmarks de productividad 2024</div>
+        </div>
+      </div>
+
+      <div class="v-bars reveal">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:1rem">Aplicaciones de IA más adoptadas en inmobiliarias 2025</div>
+        <div class="v-bar-row">
+          <div class="v-bar-name">Generación de contenido</div>
+          <div class="v-bar-track"><div class="v-bar-fill" style="background:var(--blue)" data-width="86%"></div></div>
+          <div class="v-bar-val" style="color:var(--blue)">86%</div>
+        </div>
+        <div class="v-bar-row">
+          <div class="v-bar-name">Gestión y análisis de datos</div>
+          <div class="v-bar-track"><div class="v-bar-fill" style="background:var(--blue)" data-width="81%"></div></div>
+          <div class="v-bar-val" style="color:var(--blue)">81%</div>
+        </div>
+        <div class="v-bar-row">
+          <div class="v-bar-name">Análisis de documentos</div>
+          <div class="v-bar-track"><div class="v-bar-fill" style="background:var(--blue)" data-width="76%"></div></div>
+          <div class="v-bar-val" style="color:var(--blue)">76%</div>
+        </div>
+        <div class="v-bar-row">
+          <div class="v-bar-name">IA Conversacional (consultas)</div>
+          <div class="v-bar-track"><div class="v-bar-fill" style="background:var(--blue)" data-width="70%"></div></div>
+          <div class="v-bar-val" style="color:var(--blue)">70%</div>
+        </div>
+      </div>
+
+      <div class="stat-grid-3">
+        <div class="stat-card">
+          <div class="stat-big">35%</div>
+          <div class="stat-label">incremento en cierre de ventas tras <strong>6 meses de uso de CRM con IA</strong></div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-big">107%</div>
+          <div class="stat-label">aumento en generación de <strong>leads inbound</strong> en los primeros 6 meses</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-big">72%</div>
+          <div class="stat-label">de empresas reportan <strong>aumento de ingresos</strong> tras integrar CRM con IA</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-glow"></div>
+        <p>La principal barrera de adopción no es el costo ni la tecnología: es la <strong>falta de capacitación interna (70%)</strong> y la dificultad de integrar nuevas herramientas con sistemas existentes (62%). Exactamente el problema que Smartflow resuelve en menos de 30 días.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 6: SÍNTESIS -->
+    <div class="r-section blurred reveal" id="section6">
+      <div class="blur-overlay" id="blur6">
+        <div class="blur-unlock-text">🔒 Sección bloqueada</div>
+        <div class="blur-unlock-sub">Ingresa tu email arriba para acceder</div>
+      </div>
+      <div class="r-num">06</div>
+      <div class="r-tag">Plan de acción 2025–2026</div>
+      <h2>Lo que hacen diferente<br>las agencias que<br><em>lideran el mercado.</em></h2>
+      <p class="r-lead">Los datos apuntan a cuatro movimientos no negociables para las agencias de 6 a 20 agentes que quieran sobrevivir y crecer en el nuevo mercado.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card blue">
+          <div class="stat-big">3 min</div>
+          <div class="stat-label"><strong>Protocolo de respuesta:</strong> automatización de la primera interacción para capturar el 78% de los leads que eligen al primer respondedor</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-big">5–12</div>
+          <div class="stat-label"><strong>Persistencia automatizada:</strong> flujos de seguimiento impulsados por IA que reemplazan el 60% de abandono tras el primer intento</div>
+        </div>
+      </div>
+
+      <div class="pull-quote">
+        <p>"La tierra y el ladrillo son solo la mitad de la ecuación. La otra mitad es la velocidad con que tu organización captura, cualifica y convierte un lead en minutos."</p>
+        <span>Síntesis del Informe Inmobiliario Iberoamérica 2025</span>
+      </div>
+
+      <!-- CTA FINAL -->
+      <div class="cta-final">
+        <div class="cta-final-glow"></div>
+        <h2>¿Tu agencia está<br>en el 37% que <em>sí responde?</em></h2>
+        <p>Agenda una sesión de 30 minutos y te mostramos exactamente qué automatizar primero para estar en el top del mercado en 90 días.</p>
+        <a href="https://cal.com/smartflow.es/30min?user=smartflow.es" target="_blank" rel="noopener" class="btn-cal">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M5 2v2M11 2v2M2 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Agendar sesión gratuita →
+        </a>
+        <div class="cta-spots">Sin compromiso · 30 minutos · Cupos limitados esta semana</div>
+      </div>
+    </div>
+
+  </div><!-- end locked -->
+</div><!-- end report -->
+
+<footer>
+  <a href="#" class="f-logo"><span class="logo-dot" style="width:7px;height:7px"></span>Smartflow</a>
+  <p>© 2026 Smartflow · Datos verificados 2023–2025</p>
+</footer>
+
+<script>
+// Animate bars on scroll
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.querySelectorAll('[data-width]').forEach(bar => {
+        setTimeout(() => { bar.style.width = bar.dataset.width; }, 200);
+      });
+      barObs.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.2});
+
+document.querySelectorAll('.conv-table, .v-bars, .stat-grid, .stat-grid-3').forEach(el => barObs.observe(el));
+
+// Reveal on scroll
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target);}});
+}, {threshold:.1});
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+// Email gate
+async function unlockReport() {
+  const email = document.getElementById('email-input').value.trim();
+  if(!email || !email.includes('@')) {
+    document.getElementById('email-input').style.borderColor = '#dc2626';
+    return;
+  }
+
+  const btn = document.querySelector('.email-submit');
+  btn.textContent = 'Procesando…'; btn.disabled = true;
+
+  // Call backend — fire and forget (don't block UX)
+  fetch('/api/capture-lead', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ email, fuente: 'Informe Inmobiliario 2025' })
+  }).catch(() => {});
+
+  // Unlock immediately without waiting
+  document.getElementById('email-gate').style.display = 'none';
+  ['blur3','blur4','blur5','blur6'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.classList.add('hidden');
+  });
+  ['section3','section4','section5','section6'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.classList.remove('blurred');
+  });
+
+  setTimeout(() => {
+    document.querySelectorAll('[data-width]').forEach(bar => {
+      if(bar.style.width === '0px' || bar.style.width === '') {
+        bar.style.width = bar.dataset.width;
+      }
+    });
+    document.getElementById('section3').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 300);
+}
+
+// Allow enter key on email
+document.getElementById('email-input').addEventListener('keydown', e => {
+  if(e.key === 'Enter') unlockReport();
+});
+</script>
+</body>
+</html>
