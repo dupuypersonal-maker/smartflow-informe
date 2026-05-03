@@ -16,28 +16,29 @@ module.exports = async function handler(req, res) {
   const errors = [];
 
   // 1. Save to Airtable
-  try {
-    const atRes = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/Table%201`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        fields: {
-         Name: email,
-          Fuente: fuente || 'Informe Inmobiliario 2025',
-          Fecha: new Date().toISOString().split('T')[0],
-        }
-      })
-    });
-    if (!atRes.ok) {
-      const err = await atRes.text();
-      errors.push('Airtable: ' + err);
-    }
-  } catch (e) {
-    errors.push('Airtable error: ' + e.message);
-  }
+try {
+  const atRes = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/Table%201`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      fields: {
+        Name: email,
+        Fuente: fuente || 'Informe Inmobiliario 2025',
+        Fecha: new Date().toISOString().split('T')[0],
+      }
+    })
+  });
+  const atBody = await atRes.text();
+  console.log('Airtable status:', atRes.status);
+  console.log('Airtable response:', atBody);
+  if (!atRes.ok) errors.push('Airtable: ' + atBody);
+} catch (e) {
+  console.log('Airtable exception:', e.message);
+  errors.push('Airtable error: ' + e.message);
+}
 
   // 2. Send confirmation email via Resend
   try {
