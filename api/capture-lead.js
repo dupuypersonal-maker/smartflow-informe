@@ -27,7 +27,6 @@ try {
       fields: {
         Email: email,
         Fuente: fuente || 'Informe Inmobiliario 2025',
-        Fecha: new Date().toISOString().split('T')[0],
       }
     })
   });
