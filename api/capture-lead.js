@@ -17,7 +17,7 @@ module.exports = async function handler(req, res) {
 
   // 1. Save to Airtable
   try {
-    const atRes = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/Leads`, {
+    const atRes = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/Table%201`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
